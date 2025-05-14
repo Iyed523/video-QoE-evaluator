@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atelier : Impact de la Résolution Vidéo</title>
+    <link rel="stylesheet" href="site.css"> <!-- Lien vers une feuille de style externe -->
+    <script src="Video_js/video_enfant.js"></script>
+    <script src="Video_js/video.js"></script>
+    
+
+
+
+</head> 
+<body>
+   
+
+    
+    <script>
+        
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const tabs = ["introduction", "videos", "resolutions", "streaming-quality", "sensibilisation"];
+            let currentTabIndex = 0;
+
+            function openTab(arg1, arg2 = null) {
+                let index;
+                let tabId;
+                let event = null;
+
+                // Détection du format
+                if (typeof arg1 === "number") {
+                    index = arg1;
+                    tabId = tabs[index];
+                } else if (typeof arg1 === "string") {
+                    tabId = arg1;
+                    index = tabs.indexOf(tabId);
+                } else if (typeof arg1 === "object" && typeof arg2 === "string") {
+                    event = arg1;
+                    tabId = arg2;
+                    index = tabs.indexOf(tabId);
+                }
+
+                if (index < 0 || index >= tabs.length || !tabId) return;
+
+                // Cacher tous les contenus
+                document.querySelectorAll(".tab-content").forEach(content => {
+                    content.style.display = "none";
+                });
+
+                // Afficher l'onglet sélectionné
+                const activeTab = document.getElementById(tabId);
+                if (activeTab) {
+                    activeTab.style.display = "block";
+                }
+
+                // Mettre à jour la barre de progression
+                let progressPercentage = ((index + 1) / tabs.length) * 100;
+                const tabBar = document.querySelector(".tab");
+                if (tabBar) {
+                    tabBar.style.setProperty("--progress", progressPercentage + "%");
+                    tabBar.style.setProperty("background", `linear-gradient(to right, green ${progressPercentage}%, #ddd ${progressPercentage}%)`);
+                }
+
+                // Mettre à jour les classes actives
+                document.querySelectorAll(".tablink").forEach((btn, i) => {
+                    btn.classList.toggle("active", i === index);
+                });
+
+                if (event && event.currentTarget) {
+                    event.currentTarget.className += " active";
+                }
+
+                currentTabIndex = index;
+            }
+
+            // Rendre accessible globalement
+            window.openTab = openTab;
+
+            document.getElementById("nextButton").addEventListener("click", function () {
+                if (currentTabIndex < tabs.length - 1) {
+                    openTab(currentTabIndex + 1);
+                }
+            });
+
+            document.getElementById("prevButton").addEventListener("click", function () {
+                if (currentTabIndex > 0) {
+                    openTab(currentTabIndex - 1);
+                }
+            });
+
+            openTab(0); // Tab initial
+        });
+
+        function afficherExplicationResolution() {
+            const indexTabResolutions = 2; // 'resolutions' est la 3e tab donc index = 2
+
+            // Active l'onglet des résolutions
+            openTab(indexTabResolutions);
+
+            // Attendre un peu que l'affichage se mette à jour avant de faire le scroll
+            setTimeout(() => {
+                const tab = document.getElementById('resolutions');
+                if (tab) {
+                    tab.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 300); // Délai pour s'assurer que l'onglet est bien visible
+        }
+
+        function retourFormulaire() {
+            const indexTabVideo = 1; // 'resolutions' est la 3e tab donc index = 2
+
+            // Active l'onglet des résolutions
+            openTab(indexTabVideo);
+
+            // Attendre un peu que l'affichage se mette à jour avant de faire le scroll
+            setTimeout(() => {
+                const tab = document.getElementById('videos');
+                if (tab) {
+                    tab.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 300); // Délai pour s'assurer que l'onglet est bien visible
+        }
+
+
+        
+
+
+    </script>
+    <div class="tab">
+        <button class="tablink" onclick="openTab(event, 'introduction')">Introduction</button>
+        <button class="tablink" onclick="openTab(event, 'videos')">Vidéos</button>
+
+        <button class="tablink" onclick="openTab(event, 'resolutions')">Résolutions Vidéo</button>
+        <button class="tablink" onclick="openTab(event, 'streaming-quality')">Plateformes de Streaming</button>
+        <button class="tablink" onclick="openTab(event, 'sensibilisation')">Sensibilisation</button>
+
+        
+    </div>
+
+    <div class="navigation-image">
+        <img id="logoEnHautGauche" src="img/Figure_2.png" alt="Illustration" />
+    </div>
+
+    
+   
+    <div class="navigation-buttons">
+        <button id="prevButton">◀ Retour</button>
+        <button id="nextButton">Suivant ▶</button>
+    </div>
+   
+
+    <div id="introduction" class="tab-content">
+       <section id="introduction1">
+            <h2>Introduction à l'Atelier</h2>
+            <p>Bienvenue à notre atelier consacré à un sujet crucial : l'impact de nos choix de résolution vidéo sur l'empreinte carbone d'Internet. À l'ère du numérique, la consommation de contenu en ligne, qu'il s'agisse de vidéos, de films ou de streaming en direct, connaît une croissance exponentielle. Cependant, ce plaisir a un coût environnemental souvent méconnu.</p>
+            <p>Au cours de cet atelier, nous explorerons comment le choix de la résolution vidéo peut influencer la consommation d'énergie et, par conséquent, les émissions de gaz à effet de serre. Nous discuterons des différentes résolutions, de leur impact sur l'environnement, et des actions simples que chacun de nous peut entreprendre pour réduire notre empreinte carbone numérique.</p>
+            <p>Rejoignez-nous pour une session interactive et informative qui vous permettra de mieux comprendre comment nos choix en matière de vidéo peuvent contribuer à un avenir plus durable !</p>
+            <button id="readTextButton">Lire le texte</button>
+            <button id="stopTextButton">Arrêter la lecture</button>
+           
+        </section>
+    </div>
+
+    
+
+    <script>
+        // Fonction pour lire le texte
+        function readText() {
+            const text = document.getElementById("introduction").innerText; // Récupérer le texte à lire
+            const speech = new SpeechSynthesisUtterance(text); // Créer un objet SpeechSynthesisUtterance
+            speech.lang = "fr-FR"; // Définir la langue (ici, le français)
+            window.speechSynthesis.speak(speech); // Faire parler le navigateur
+        }
+        // Fonction pour arrêter la lecture du texte
+        function stopText() {
+            window.speechSynthesis.cancel(); // Annuler la lecture en cours
+        }
+
+        // Ajouter un écouteur d'événements pour le bouton de lecture
+        document.getElementById("readTextButton").addEventListener("click", readText);
+        
+        // Ajouter un écouteur d'événements pour le bouton d'arrêt
+        document.getElementById("stopTextButton").addEventListener("click", stopText);
+
+      
+    </script>
+
+    <div id="resolutions" class="tab-content">
+        <section id="resolutions1">
+            <h2>Comprendre les Résolutions Vidéo</h2>
+            <p>La résolution d'une vidéo fait référence au nombre de pixels qui composent l'image. Plus la résolution est élevée, plus la qualité d'image est claire et détaillée. Cependant, une résolution plus élevée nécessite également plus de bande passante, ce qui peut augmenter l'impact carbone associé à la diffusion de contenu.</p>
+            
+            <h3>Voici quelques résolutions courantes :</h3>
+            <ul>
+                <li><strong>480p (SD)</strong>: Qualité standard, environ 0,7 Go/heure. Idéale pour des connexions Internet plus lentes.</li>
+                <li><strong>720p (HD)</strong>: Haute définition, environ 1,5 Go/heure. Bon compromis entre qualité et utilisation de données.</li>
+                <li><strong>1080p (Full HD)</strong>: Très haute définition, environ 3 Go/heure. Excellente qualité, mais nécessite une bande passante élevée.</li>
+                <li><strong>4K (Ultra HD) – 2160p </strong> : Résolution quatre fois supérieure au Full HD, avec des détails beaucoup plus fins. C'est la norme pour les téléviseurs 4K, environ 7 à 10 Go/heure </li>
+            </ul>
+
+            <p>Avant de visionner les vidéos, réfléchissez à la résolution que vous choisissez et à son impact potentiel sur l'environnement.</p>
+        <section id="data-usage">
+            <h4>Comprendre le Go/heure</h4>
+            <p>Le Go/heure indique la quantité de données (en gigaoctets) qu'une vidéo nécessite pour être diffusée pendant une heure. Cela aide à comprendre l'impact de la qualité vidéo sur la bande passante utilisée et, par conséquent, sur l'empreinte carbone associée à la diffusion de contenu en ligne.</p>
+            
+            <br>
+            <br>
+            <button  type="button" onclick="retourFormulaire()"> 
+
+                Retour au formulaire ➡️
+            </button>
+        </section>
+
+        </section>
+    </div>
+
+    
+    
+
+   
+
+    <div id="streaming-quality" class="tab-content">
+        <section id="streaming-quality1">
+            <h2>Niveaux de Qualité Proposés par les Principales Plateformes de Streaming</h2>
+            
+            <h3>Tableau des Résolutions par Diffuseur de Contenus</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Diffuseur\Résolution</th>
+                        <th>SD (480p)</th>
+                        <th>HD (720p)</th>
+                        <th>Full HD (1080p)</th>
+                        <th>4K (2160p)</th>
+                        <th>8K (4320p)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Prime Video</td>
+                        <td><span class="icon-check"></span></td>
+                        <td><span class="icon-check"></span></td>
+                        <td><span class="icon-check"></span></td>
+                        <td><span class="icon-check"></span></td>
+                        <td><span class="icon-cross"></span></td>
+                    </tr>
+                    <tr>
+                        <td>YouTube</td>
+                        <td><span class="icon-check"></span></td>
+                        <td><span class="icon-check"></span></td>
+                        <td><span class="icon-check"></span></td>
+                        <td><span class="icon-check"></span></td>
+                        <td><span class="icon-check"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Disney+</td>
+                        <td><span class="icon-check"></span></td>
+                        <td><span class="icon-check"></span></td>
+                        <td><span class="icon-check"></span></td>
+                        <td><span class="icon-check"></span></td>
+                        <td><span class="icon-cross"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Apple TV+</td>
+                        <td><span class="icon-check"></span></td>
+                        <td><span class="icon-check"></span></td>
+                        <td><span class="icon-check"></span></td>
+                        <td><span class="icon-cross"></span></td>
+                        <td><span class="icon-cross"></span></td>
+                    </tr>
+        </tbody>
+    </table>
+
+        </section>
+
+      
+    </div>
+
+   
+    
+    
+   
+   
+
+    <div id="videos" class="tab-content">
+        <section id="videos1">
+             
+            <button id="modeEnfantButton" onclick="activerModeEnfant()">👶 Mode enfant</button>
+            <h2>Vidéos à Visionner</h2>
+
+
+            <p>
+                Vous allez visionner la même vidéo dans deux résolutions différentes, tirées au hasard. 
+                Une fois la vidéo terminée, nous vous inviterons à donner votre retour sur votre expérience 
+                de visionnage. Cela nous aidera à comprendre l'impact des différentes résolutions.
+            </p>
+            <div id="modeStatus" style="font-weight: bold; margin: 10px;"></div>
+
+            
+            <section id="feedback1" style="display: block;">
+                <form id="userForm">
+                    <label for="pseudo">Veuillez entrer votre pseudo :</label>
+                    <input type="text" id="pseudo" name="pseudo" required>
+                </form>
+            </section>
+
+           
+           
+
+            
+            <section id="tempsSection">
+                <label for="temps">Combien de minutes avez-vous ?</label>
+                <select id="temps" name="temps" required>
+                    <option value="1">1 minute</option>
+                    <option value="2">2 minutes</option>
+                    <option value="3">3 minutes</option>
+                    <option value="4">4 minutes</option>
+                    <option value="5">5 minutes</option> 
+                </select>
+                <button id="startButton">Commencer</button>
+            </section>
+
+         
+
+           
+        
+            <!-- Zone de vidéo -->
+
+            <div class="video-container">
+                <video id="videoPlayer" width="640" height="360" controls>
+                    
+                    <source id="videoSource" src="Video/video4k1.mp4" type="video/mp4">
+                    Votre navigateur ne supporte pas la vidéo.
+                </video>
+                <div id="transitionScreen">
+                    <p id="transitionText"></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="feedback" style="display: none;">
+            <h2>Retour d'Expérience</h2>
+            <form id="feedbackForm" action="http://localhost:3300/addUser" method="POST">
+                
+
+                <label>Le confort de visionnage était-il satisfaisant pour la première vidéo ?</label><br>
+                <input type="radio" name="imageQuality1" value="verySatisfactory"> Oui, très satisfaisante<br>
+                <input type="radio" name="imageQuality1" value="correct"> Correcte<br>
+                <input type="radio" name="imageQuality1" value="notSatisfactory"> Pas vraiment satisfaisante<br>
+                <input type="radio" name="imageQuality1" value="bad"> Mauvaise qualité<br>
+                <input type="radio" name="imageQuality1" value="unwatchable"> Vidéo très difficile à regarder<br><br>
+
+
+                <label>Le confort de visionnage était-il satisfaisant pour la deuxième vidéo ?</label><br>
+                <input type="radio" name="imageQuality2" value="verySatisfactory"> Oui, très satisfaisante<br>
+                <input type="radio" name="imageQuality2" value="correct"> Correcte<br>
+                <input type="radio" name="imageQuality2" value="notSatisfactory"> Pas vraiment satisfaisante<br>
+                <input type="radio" name="imageQuality2" value="bad"> Mauvaise qualité<br>
+                <input type="radio" name="imageQuality2" value="unwatchable"> Vidéo très difficile à regarder<br><br>
+
+
+                
+
+                <!-- Question sur la fluidité pour la première résolution -->
+                <label>Comment évalueriez-vous la fluidité de la lecture de la première vidéo ?</label><br>
+                <input type="radio" name="fluidity1" value="verySmooth"> Très fluide<br>
+                <input type="radio" name="fluidity1" value="quiteSmooth"> Assez fluide<br>
+                <input type="radio" name="fluidity1" value="sometimesChoppy"> Parfois saccadée<br>
+                <input type="radio" name="fluidity1" value="veryChoppy"> Très saccadée<br><br>
+
+                <!-- Question sur la fluidité pour la deuxième résolution -->
+                <label>Comment évalueriez-vous la fluidité de la lecture de la deuxième vidéo ?</label><br>
+                <input type="radio" name="fluidity2" value="verySmooth"> Très fluide<br>
+                <input type="radio" name="fluidity2" value="quiteSmooth"> Assez fluide<br>
+                <input type="radio" name="fluidity2" value="sometimesChoppy"> Parfois saccadée<br>
+                <input type="radio" name="fluidity2" value="veryChoppy"> Très saccadée<br><br>
+
+                <label for="resolution1">D'après vous, quelle était la résolution de la première vidéo ?</label>
+                <select id="resolution1" name="resolution">
+                    <option value="" disabled selected>Choisissez une option</option>
+                    <option value="144p">144p</option>
+                    <option value="240p">240p</option>
+                    <option value="360p">360p</option>
+                    <option value="480p">480p</option>
+                    <option value="720p">720p</option>
+                    <option value="1080p">1080p</option>
+                    <option value="4k">4k</option>
+                </select>
+
+                <br>
+                <br>
+                <label for="resolution2">D'après vous, quelle était la résolution de la deuxième vidéo ?</label>
+                <select id="resolution2" name="resolution">
+                    <option value="" disabled selected>Choisissez une option</option>
+                    <option value="144p">144p</option>
+                    <option value="240p">240p</option>
+                    <option value="360p">360p</option>
+                    <option value="480p">480p</option>
+                    <option value="720p">720p</option>
+                    <option value="1080p">1080p</option>
+                    <option value="4k">4k</option>
+                </select>
+                <br>
+                <br>
+
+                <button id="explication_res" type="button" onclick="afficherExplicationResolution()">📘 Explication des résolutions</button>
+                <br>
+                <br>
+
+
+               
+
+                <label>Quelle vidéo vous a apporté le meilleur confort de visionnage ?</label><br>
+                <input type="radio" name="preferredResolution" value="first"> La première vidéo<br>
+                <input type="radio" name="preferredResolution" value="second"> La deuxième vidéo<br>
+                <input type="radio" name="preferredResolution" value="no_preference"> Je n’ai pas vu de préférence particulière<br><br>
+
+                <div id="finalQuestion" style="display: none;">
+                    <label>Quel critère est le plus important pour vous lorsque vous regardez une vidéo ?</label><br>
+                    <input type="radio" name="importantCriteria" value="highQuality"> Une image de haute qualité (résolution élevée)<br>
+                    <input type="radio" name="importantCriteria" value="smoothness"> Une fluidité parfaite (pas d'interruptions ou de saccades)<br>
+                    <input type="radio" name="importantCriteria" value="fastLoading"> Une vitesse de chargement rapide<br>
+                    <input type="radio" name="importantCriteria" value="soundQuality"> Une qualité sonore optimale<br>
+                    <input type="radio" name="importantCriteria" value="lowDataUsage"> Une faible consommation de données<br><br>
+                </div>
+                
+
+                
+                
+                <label for="commentaire">Commentaires supplémentaires :</label><br>
+                <textarea id="commentaire" name="commentaire" rows="4" cols="50"></textarea><br>
+
+                <input id="submitFeedback" type="submit" value="Soumettre">
+            </form>
+
+            <div id="loadingScreen" style="display: none; text-align: center; margin-top: 20px;">
+                <p id="loadingText">Calcul de vos résultats...</p>
+                <div style="width: 100%; background: #ddd; border-radius: 10px; overflow: hidden;">
+                    <div id="loadingBar" style="width: 0%; height: 20px; background: #4caf50;"></div>
+                </div>
+            </div>
+            
+            <div id="finalResult" style="display: none; text-align: center; margin-top: 20px; border: 1px solid #ccc; padding: 20px;">
+                <p>Vos résultats s'afficheront ici...</p>
+            </div>
+            
+
+           
+            
+            <div id="correctAnswers" style="display: none;">
+                <h3>Voici les vraies résolutions des vidéos :</h3>
+                <p id="realResolution1"></p>
+                <p id="realResolution2"></p>
+            
+                <h3>Vos réponses :</h3>
+                <p id="userResolution1"></p>
+                <p id="userResolution2"></p>
+            </div>
+        </section>
+
+       
+
+        
+        
+        <script>
+
+          
+
+            function openTab(evt, tabName) {
+                // Masquer tous les contenus de tab
+                var i, tabContent, tabLinks;
+                tabContent = document.getElementsByClassName("tab-content");
+                for (i = 0; i < tabContent.length; i++) {
+                    tabContent[i].style.display = "none";
+                }
+
+                // Retirer la classe active de tous les boutons de tab
+                tabLinks = document.getElementsByClassName("tablink");
+                for (i = 0; i < tabLinks.length; i++) {
+                    tabLinks[i].className = tabLinks[i].className.replace(" active", "");
+                }
+
+                // Afficher le contenu de l'onglet sélectionné
+                document.getElementById(tabName).style.display = "block";
+                evt.curren
+                tTarget.className += " active";
+            }
+
+           
+
+
+           
+            // Fonction pour initialiser le score d'un nouvel utilisateur
+            function initUserScore(pseudo) {
+                const scoreKey = `score_${pseudo}`;
+                if (!localStorage.getItem(scoreKey)) {
+                    localStorage.setItem(scoreKey, "0");
+                }
+            }
+
+            // Fonction pour récupérer le score d'un utilisateur
+            function getUserScore(pseudo) {
+                return parseInt(localStorage.getItem(`score_${pseudo}`)) || 0;
+            }
+
+           
+
+
+           
+
+            const DUREE_VALIDITE_MINUTES = 10;
+            let userIsTyping = false;
+            let lastInputTime = 0;
+
+            // Sauvegarder pseudo localement
+            function savePseudo() {
+                const pseudo = document.getElementById('pseudo').value.trim();
+                if (pseudo) {
+                    const expirationTime = Date.now() + DUREE_VALIDITE_MINUTES * 60 * 1000;
+                    localStorage.setItem('savedPseudo', pseudo);
+                    localStorage.setItem('pseudoExpiration', expirationTime);
+                }
+            }
+
+            // Charger depuis localStorage
+            function loadPseudo() {
+                const savedPseudo = localStorage.getItem('savedPseudo');
+                const expirationTime = localStorage.getItem('pseudoExpiration');
+                if (savedPseudo && expirationTime && Date.now() < parseInt(expirationTime)) {
+                    document.getElementById('pseudo').value = savedPseudo;
+                    console.log("✅ Pseudo chargé depuis localStorage :", savedPseudo);
+                } else {
+                    localStorage.removeItem('savedPseudo');
+                    localStorage.removeItem('pseudoExpiration');
+                }
+            }
+
+            // Vérifie si on peut mettre à jour depuis serveur
+            function shouldUpdatePseudo() {
+                return !userIsTyping || (Date.now() - lastInputTime > 5000);
+            }
+
+            const baseURL = `http://${window.location.hostname}:3300`;
+
+            // Vérifie régulièrement le dernier pseudo depuis le serveur
+            function checkForNewPseudo() {
+                fetch(`${baseURL}/getLatestPseudo`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const newPseudo = data.pseudo;
+                        const pseudoField = document.getElementById('pseudo');
+
+                        if (newPseudo && pseudoField.value !== newPseudo && shouldUpdatePseudo()) {
+                            pseudoField.value = newPseudo;
+                            savePseudo(); // aussi stocker localement
+                            console.log("✅ Pseudo mis à jour automatiquement :", newPseudo);
+                        }
+                    })
+                    .catch(err => console.error("❌ Erreur de pseudo serveur :", err));
+            }
+             
+
+            // Initialisation
+            window.addEventListener('load', () => {
+                const pseudoField = document.getElementById('pseudo');
+                loadPseudo();
+
+                if (!pseudoField.value) {
+                    checkForNewPseudo();
+                }
+
+                // Détection de modification utilisateur
+                pseudoField.addEventListener('input', () => {
+                    userIsTyping = true;
+                    lastInputTime = Date.now();
+                });
+
+                // Sauvegarder automatiquement quand l'utilisateur quitte le champ
+                pseudoField.addEventListener('change', savePseudo);
+
+                // Lancer les vérifications régulières
+                setInterval(checkForNewPseudo, 5000);
+            });
+
+            function fetchServerScore(pseudo) {
+                fetch(`${baseURL}/getScore?pseudo=${encodeURIComponent(pseudo)}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        const serverScore = data.score || 0;
+                        localStorage.setItem(`score_${pseudo}`, serverScore.toString()); // Sauvegarde du score dans le localStorage pour cette session
+                        console.log(`📥 Score chargé du serveur : ${serverScore}`);
+                    })
+                    .catch(err => {
+                        console.error("Erreur récupération score serveur :", err);
+                    });
+            }
+
+
+            // Initialise le temps (en secondes) pour un pseudo
+            function initUserTime(pseudo) {
+                const timeKey = `time_${pseudo}`;
+                if (!localStorage.getItem(timeKey)) {
+                    localStorage.setItem(timeKey, "0");
+                }
+            }
+
+            // Récupère le temps total (en secondes) pour un pseudo
+            function getUserTime(pseudo) {
+                return parseInt(localStorage.getItem(`time_${pseudo}`)) || 0;
+            }
+
+            // Ajoute des secondes au temps total d’un pseudo
+            function updateUserTime(pseudo, secondsToAdd) {
+                const timeKey = `time_${pseudo}`;
+                const current = getUserTime(pseudo);
+                localStorage.setItem(timeKey, (current + secondsToAdd).toString());
+            }
+
+            function fetchServerTime(pseudo) {
+                fetch(` ${baseURL}/getTime?pseudo=${encodeURIComponent(pseudo)}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        const serverTime = data.time || 0;
+                        localStorage.setItem(`time_${pseudo}`, serverTime.toString());
+                        console.log(`📥 Temps chargé du serveur : ${serverTime} sec`);
+                    })
+                    .catch(err => {
+                        console.error("Erreur récupération temps serveur :", err);
+                    });
+            }
+
+
+
+
+
+            let sessionStart; 
+
+            // Sauvegarder le pseudo quand l'utilisateur le modifie
+            document.getElementById('pseudo').addEventListener('change', savePseudo);
+
+        
+            document.getElementById('startButton').onclick = function() {
+
+                event.preventDefault(); // Empêche le rechargement de la page
+                sessionStart = Date.now();
+                
+                // Nettoyer les anciennes sessions au début d'une nouvelle visite
+                sessionStorage.removeItem("feedbackSessions");
+
+            
+                // Récupérer le pseudo entré par l'utilisateur
+                pseudo_1 = document.getElementById('pseudo').value;
+                
+                console.log("Pseudo de l'utilisateur : " + pseudo_1);
+                //document.getElementById('feedback1').style.display = 'none';
+
+                var pseudo = document.getElementById('pseudo').value.trim();
+
+                // Vérifier si le pseudo est vide
+                if (pseudo === "") {
+                    alert("Veuillez entrer votre pseudo avant de commencer.");
+                    return; // Arrêter l'exécution si le pseudo n'est pas renseigné
+                }
+
+                // Sauvegarder le pseudo dans localStorage
+                localStorage.setItem("pseudo", pseudo);
+
+                 // 📥 Charger le score depuis le serveur si existant
+                fetchServerScore(pseudo);
+                fetchServerTime(pseudo);       // 👈 à ajouter
+                
+                // Initialiser le score pour cet utilisateur si ce n'est pas encore fait
+                initUserScore(pseudo);
+                initUserTime(pseudo);
+
+              
+                
+
+                console.log("Pseudo enregistré : " + pseudo);
+                console.log("Score initialisé à : " + getUserScore(pseudo));
+               
+              
+                // Sauvegarder le pseudo dans localStorage chaque fois que l'utilisateur change la valeur
+                savePseudo();
+
+                
+                // Enregistrer côté serveur (envoi à Node.js)
+                fetch(`${baseURL}/registerPseudo`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ pseudo })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("✅ Pseudo enregistré côté serveur :", data.message);
+                })
+                .catch(error => {
+                    console.error("❌ Erreur lors de l'enregistrement du pseudo sur le serveur :", error);
+                });
+
+                
+                var minutes = parseInt(document.getElementById('temps').value); // Récupérer la valeur de l'élément <select>
+                if (minutes >= 1 && minutes <= 5) {
+                    // Utiliser le nombre de minutes comme le nombre de sessions
+                    visionnerVideosAleatoires(minutes);
+                } else {
+                    alert("Veuillez sélectionner un nombre de minutes valide.");
+                }
+                // Cacher la section du formulaire après soumission
+                document.getElementById('feedback1').style.display = 'none';
+                document.getElementById('tempsSection').style.display = 'none'
+
+                let videoPlayer = document.getElementById("videoPlayer");
+
+    
+               
+            };
+
+            // Permet de lancer la vidéo quand on appuie sur Entrée dans le champ du pseudo
+            document.getElementById("pseudo").addEventListener("keydown", function(event) {
+                if (event.key === "Enter") {
+                    event.preventDefault(); // Empêche l'envoi du formulaire
+                    document.getElementById("startButton").click(); // Simule le clic sur le bouton
+                }
+            });
+
+
+            
+            let enfantMode = false;
+
+            function activerModeEnfant() {
+                enfantMode = !enfantMode;
+
+                const button = document.getElementById("modeEnfantButton");
+                const status = document.getElementById("modeStatus");
+
+                if (enfantMode) {
+                    status.innerText = "👶 Mode enfant activé";
+
+                    button.innerText = "👨‍🦰 Mode adulte";
+                    button.style.backgroundColor = "#ffcccb";  // rose clair
+                    button.style.color = "#000";
+
+                } else {
+                    status.innerText = "👨‍🦰 Mode adulte activé";
+
+                    button.innerText = "👶 Mode enfant";
+                    button.style.backgroundColor = "#d1e7dd";  // vert clair
+                    button.style.color = "#000";
+                }
+            }
+
+           
+
+            let videos = []; // tableau global
+
+
+            // Fonction principale pour faire visionner les vidéos dans deux résolutions
+            function visionnerVideosAleatoires(nombreDeSessions) {
+                // Liste des vidéos avec les résolutions disponibles
+                videos = enfantMode ? videosEnfant.slice() : videosNormales.slice();
+
+
+                const resolutionLabels = {
+                    144:"144p",
+                    240: "240p",
+                    360: "360p",
+                    480: "480p",
+                    720: "720p",
+                    1080: "1080p",
+                    2160: "4k"
+                };
+
+                var currentVideoIndex = 0;
+                var videoPlayer = document.getElementById('videoPlayer');
+                var videoSource = document.getElementById('videoSource');
+                var resolutionLabel = document.getElementById('resolutionLabel');
+                var feedbackSection = document.getElementById('feedback');
+                var resolution1Input = document.getElementById('resolution1');
+                var resolution2Input = document.getElementById('resolution2');
+                var correctAnswersDiv = document.getElementById('correctAnswers');
+                var realResolution1Text = document.getElementById('realResolution1');
+                var realResolution2Text = document.getElementById('realResolution2');
+                let videosVisionnees = 0;
+                let sessionsCompletes = 0;
+
+                
+
+
+            
+
+                let videosVisionnees_1 = []; // Tableau pour stocker les vidéos visionnées
+                
+
+                function tirerVideoAleatoire() {
+                    // Filtrer les vidéos non encore visionnées
+                    let videosNonVisionnees = videos.filter(video => !videosVisionnees_1.includes(video));
+
+                    if (videosNonVisionnees.length === 0) {
+                        alert("Toutes les vidéos ont été visionnées dans cette session !");
+                        return null; // Plus de vidéos disponibles
+                    }
+
+                    // Sélectionner une vidéo aléatoire parmi celles non visionnées
+                    let randomIndex = Math.floor(Math.random() * videosNonVisionnees.length);
+                    let videoChoisie = videosNonVisionnees[randomIndex];
+
+                    // Ajouter la vidéo choisie à la liste des vidéos visionnées
+                    videosVisionnees_1.push(videoChoisie);
+
+                    return videoChoisie;
+                }
+
+                // Fonction pour tirer une résolution aléatoire parmi celles disponibles pour une vidéo
+                function tirerResolutionAleatoire(video) {
+                    let availableResolutions = video.resolutions;
+                    let randomIndex = Math.floor(Math.random() * availableResolutions.length);
+                    return availableResolutions[randomIndex];
+                }
+
+                function exitFullscreen() {
+                    if (document.fullscreenElement) {
+                        document.exitFullscreen().then(() => {
+                            console.log("Sortie du mode plein écran");
+                        }).catch((err) => {
+                            console.error("Erreur en sortant du plein écran:", err);
+                        });
+                    }
+                }
+
+                function enterFullscreen() {
+                    let videoPlayer = document.getElementById("videoPlayer");
+                    if (videoPlayer.requestFullscreen) {
+                        videoPlayer.requestFullscreen()
+                            .then(() => {
+                                console.log("Le mode plein écran a été activé.");
+                            })
+                            .catch((err) => {
+                                console.error("Échec du passage en plein écran:", err);
+                            });
+                    }
+                }
+                // Fonction pour afficher le message de transition avant la vidéo
+                function afficherMessageTransition(message, callback) {
+                    exitFullscreen(); // Sortir du plein écran
+                    let transitionScreen = document.getElementById("transitionScreen");
+                    let transitionText = document.getElementById("transitionText");
+
+                    transitionText.innerText = message;
+                    transitionScreen.style.display = "flex";
+
+                   
+
+                    // Attendre 2 secondes avant de lancer la vidéo
+                    setTimeout(() => {
+                        transitionScreen.style.display = "none";
+                        callback(); // Lance la vidéo après la transition
+
+                        // Attendre quelques millisecondes avant d'activer le plein écran
+                        setTimeout(() => {
+                            enterFullscreen(); // Remettre en plein écran après la transition
+                        }, 100); // 100ms pour laisser le temps à la vidéo de se charger
+                    }, 2000); // Durée de la transition
+                }
+
+                
+
+                                
+                // Fonction pour jouer une paire de résolutions pour une vidéo
+                function jouerResolutionPaire() {
+                    let video = tirerVideoAleatoire(); // Sélectionner une vidéo aléatoire
+                    let resolution1 = tirerResolutionAleatoire(video);
+                    let resolution2 = tirerResolutionAleatoire(video);
+
+                    // S'assurer que les deux résolutions sont différentes
+                    while (resolution1 === resolution2 && video.resolutions.length > 1) {
+                        resolution2 = tirerResolutionAleatoire(video);
+                    }
+
+                    console.log(`Résolutions sélectionnées : ${resolution1} et ${resolution2}`);
+
+                    let resolutions = [resolution1, resolution2];
+                    let currentResolutionIndex = 0;
+
+                    function jouerProchaineResolution() {
+                        if (currentResolutionIndex < resolutions.length) {
+                            let resolution = resolutions[currentResolutionIndex];
+                            //videoSource.src = video.sources[resolution];
+
+                            // Afficher l'écran de transition avant chaque vidéo
+                            afficherMessageTransition(
+                                `Vidéo ${videosVisionnees + 1}, Résolution ${currentResolutionIndex + 1}`,
+                                () => {
+                                    videoSource.src = video.sources[resolution];
+                                    console.log(`Lecture de la vidéo en résolution ${resolutionLabels[resolution]}`);
+                                    videoPlayer.load();
+                                    videoPlayer.play();
+                                }
+                            );
+
+                            currentResolutionIndex++;
+                        } else {
+                            afficherFeedback(resolution1, resolution2);
+                        }
+                    }
+
+                    // Commencer avec la première résolution
+                    jouerProchaineResolution();
+
+                    // Passer à la prochaine résolution quand la vidéo actuelle se termine
+                    videoPlayer.onended = jouerProchaineResolution;
+                }
+
+
+                // Fonction pour révéler l'onglet Sensibilisation
+                function revealSensibilisationTab() {
+                    const sensibilisationTab = document.getElementById("sensibilisation-tab");
+                    if (sensibilisationTab) {
+                        sensibilisationTab.classList.remove("hidden"); // Affiche l'onglet en supprimant la classe 'hidden'
+                    }
+                }
+
+                function lancerChargement() {
+                        let loadingScreen = document.getElementById("loadingScreen");
+                        let loadingBar = document.getElementById("loadingBar");
+                        let finalResult = document.getElementById("finalResult");
+
+                        // Afficher l'écran de chargement
+                        loadingScreen.style.display = "block";
+                        loadingBar.style.width = "0%";
+
+                        let progress = 0;
+                        let interval = setInterval(() => {
+                            progress += 2; // Augmente de 2% toutes les 100ms (5 secondes au total)
+                            loadingBar.style.width = progress + "%";
+
+                            if (progress >= 100) {
+                                clearInterval(interval); // Stoppe l'animation
+                                loadingScreen.style.display = "none"; // Cache la barre de chargement
+                                finalResult.style.display = "block"; // Affiche le cadre des résultats
+                            }
+                        }, 100);
+                }
+
+                                                        
+                     
+
+
+                // Fonction pour afficher le feedback après les deux vidéos
+                function afficherFeedback(resolution1, resolution2) {
+                    exitFullscreen();
+                    feedbackSection.style.display = 'block';
+
+                    // Vérifier si on est au dernier feedback
+                    if (videosVisionnees + 1 === nombreDeSessions) {
+                        //exitFullscreen();
+                        document.getElementById("finalQuestion").style.display = "block"; // Affiche la question finale
+                    } else {
+                        document.getElementById("finalQuestion").style.display = "none"; // Cache la question sinon
+                    }
+
+                   
+                    
+                    const finalQuestion = document.getElementById("explication_res");
+                    finalQuestion.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start' // 'start' met le haut de l'élément en haut de la fenêtre
+                    });
+                   
+                                    
+                                    
+                    feedbackSection.onsubmit = function (event) {
+                        event.preventDefault();
+                        // Récupérer les réponses de l'utilisateur
+                        const userResolution1 = resolution1Input.value;
+                        const userResolution2 = resolution2Input.value;
+
+                        // Comparer les réponses de l'utilisateur avec les résolutions réelles
+                        const isCorrect1 = userResolution1 === resolutionLabels[resolution1];
+                        const isCorrect2 = userResolution2 === resolutionLabels[resolution2];
+
+                        // Fonction pour mettre à jour le score (à appeler quand l'utilisateur répond correctement)
+                        function updateUserScore(pseudo, pointsToAdd) {
+                            const scoreKey = `score_${pseudo}`;
+                            let currentScore = localStorage.getItem(scoreKey) ? parseInt(localStorage.getItem(scoreKey)) : 0; // Récupère le score du localStorage ou 0 si aucun score trouvé
+
+                            const newScore = currentScore + pointsToAdd;
+                            localStorage.setItem(scoreKey, newScore.toString()); // Met à jour le score localement
+
+                            console.log(`Nouveau score de ${pseudo}: ${newScore}`);
+
+                            // Envoi du score mis à jour au serveur
+                            fetch(`${baseURL}/saveScore`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ pseudo, score: newScore })
+                            })
+                            .then(res => res.json())
+                            .then(data => console.log("📤 Score sauvegardé côté serveur :", data.message))
+                            .catch(err => console.error("❌ Erreur sauvegarde serveur :", err));
+                        }
+
+                        function saveUserTimeToServer(pseudo, time) {
+                            fetch(`${baseURL}/saveTime`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ pseudo, time })
+                            })
+                            .then(res => res.json())
+                            .then(data => console.log("📤 Temps sauvegardé côté serveur :", data.message))
+                            .catch(err => console.error("❌ Erreur sauvegarde temps :", err));
+                        }
+
+
+
+                        const pseudo = localStorage.getItem("pseudo");
+
+                        if (!pseudo) {
+                            alert("Veuillez entrer un pseudo pour commencer.");
+                            return; // Arrêter si aucun pseudo n'est enregistré
+                        }
+
+                       
+
+
+                        
+                        
+                                        
+                            
+
+                        // Afficher le feedback
+                        realResolution1Text.innerText = `La première vidéo était en : ${resolutionLabels[resolution1]} (${isCorrect1 ? 'Correct' : 'Incorrect'})`;
+                        realResolution2Text.innerText = `La deuxième vidéo était en : ${resolutionLabels[resolution2]} (${isCorrect2 ? 'Correct' : 'Incorrect'})`;
+
+                        
+
+                        //QO2
+                        const userImageQuality1 = document.querySelector('input[name="imageQuality1"]:checked');
+                        const userImageQuality2 = document.querySelector('input[name="imageQuality2"]:checked');
+
+                        // Vérifier que l'utilisateur a répondu aux questions de qualité d'image
+                        if (!userImageQuality1 || !userImageQuality2) {
+                            alert("Veuillez répondre à la question sur la qualité de l'image pour les deux vidéos.");
+                            return;
+                        }
+
+                        // Extraire les valeurs sélectionnées pour la qualité de l'image
+                        const imageQuality1 = userImageQuality1.value;
+                        const imageQuality2 = userImageQuality2.value;
+
+
+                        //QO3
+                        const userPreference = document.querySelector('input[name="preferredResolution"]:checked');
+
+                        // Vérifier que l'utilisateur a répondu aux questions de qualité d'image
+                        if (!userPreference) {
+                            alert("Veuillez répondre à la question sur votre préférence de qualité.");
+                            return;
+                        }
+                        // Extraire les valeurs sélectionnées pour la qualité de l'image
+                        const preferenceUser = userPreference.value;
+
+                        //QO4
+                        const userImageFluidity1 = document.querySelector('input[name="fluidity1"]:checked');
+                        const userImageFluidity2 = document.querySelector('input[name="fluidity2"]:checked');
+
+                        // Vérifier que l'utilisateur a répondu aux questions de qualité d'image
+                        if (!userImageFluidity1 || !userImageFluidity2) {
+                            alert("Veuillez répondre à la question sur la fluidité de l'image pour les deux vidéos.");
+                            return;
+                        }
+
+                        // Extraire les valeurs sélectionnées pour la qualité de l'image
+                        const imageFluidity1 = userImageFluidity1.value;
+                        const imageFluidity2 = userImageFluidity2.value;
+
+                        
+                        //QO5
+                        const userCritere = document.querySelector('input[name="importantCriteria"]:checked');
+
+                        // Vérifier que l'utilisateur a répondu aux questions de qualité d'image
+                        const finalQuestion = document.getElementById("finalQuestion");
+                        if (finalQuestion.style.display !== "none" && !userCritere) {
+                            alert("Veuillez répondre à la question sur votre préférence de critère.");
+                            return;
+                        }
+                        // Extraire les valeurs sélectionnées pour la qualité de l'image
+                        const critereUser = userCritere ? userCritere.value : null;
+
+                        //commentaire
+                        const userComments = document.getElementById('commentaire').value;
+
+
+                       
+
+                        function getDeviceType() {
+                            const userAgent = navigator.userAgent.toLowerCase();
+
+                            if (/mobile/i.test(userAgent)) {
+                                return 'mobile'; // téléphone
+                            } else if (/tablet/i.test(userAgent)) {
+                                return 'tablet'; // tablette
+                            } else {
+                                return 'pc'; // PC
+                            }
+                        }
+                        const screenType = getDeviceType();  // Détection du type d'écran
+
+                       
+                        // 🔹 **Stocker les données avant de rediriger**
+                        let previousSessions = JSON.parse(sessionStorage.getItem("feedbackSessions")) || [];
+                        const data = { 
+                            user: pseudo_1,
+                            resolution1: resolutionLabels[resolution1],
+                            resolution2: resolutionLabels[resolution2],
+                            QO1 : `(${userResolution1}, ${userResolution2})`,
+                            QO2 : `(${imageQuality1}, ${imageQuality2})`,
+                            QO3 : preferenceUser,
+                            QO4 : `(${imageFluidity1}, ${imageFluidity2})`,
+                            QO5 : critereUser,
+                            comments : userComments,
+                            screenType: screenType,  // Ajout du type d'écran
+
+
+                        };
+
+                       
+
+                        // Ajouter la nouvelle session à ce tableau
+                        previousSessions.push(data);
+
+                        // Réenregistrer le tout
+                        sessionStorage.setItem("feedbackSessions", JSON.stringify(previousSessions));
+                        
+                        function envoyerDonneesSession(data) {
+                            fetch(`${baseURL}/addUser`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(data)
+                            })
+                            .then(response => response.json())
+                            .then(result => console.log("✅ Données envoyées avec succès :", result))
+                            .catch(error => console.error("❌ Erreur lors de l'envoi des données :", error));
+                        }
+
+
+                        
+                            
+
+                        
+                        
+                        // Afficher le nouveau score (par exemple, mettre à jour l'affichage sur la page)
+                        let newScore = getUserScore(pseudo);
+                        console.log(`Nouveau score de ${pseudo} : ${newScore}`);
+
+                         // Ajouter 2 points pour chaque bonne réponse
+                        if (isCorrect1) updateUserScore(pseudo, 2);
+                        else if (resolution1 === 144 && userResolution1 === '240p') {
+                            updateUserScore(pseudo, 1);
+                            }
+                        else if (resolution1 === 240 && (userResolution1 === '144p' || userResolution1 === '240p' ) ) {
+                            updateUserScore(pseudo, 1);
+                        }
+                        else if (resolution1 === 360 && (userResolution1 === '240p' || userResolution1 === '480p' ) ) {
+                            updateUserScore(pseudo, 1);
+                        }
+                        else if (resolution1 === 480 && (userResolution1 === '360p' || userResolution1 === '720p' ) ) {
+                            updateUserScore(pseudo, 1);
+                        }
+                        else if (resolution1 === 720 && (userResolution1 === '480p' || userResolution1 === '1080p' ) ) {
+                            updateUserScore(pseudo, 1);
+                        }
+                        else if (resolution1 === 1080 && (userResolution1 === '720p' || userResolution1 === '2160p' ) ) {
+                            updateUserScore(pseudo, 1);
+                        }
+                        
+                        if (isCorrect2) updateUserScore(pseudo, 2);
+                        else if (resolution2 === 144 && userResolution2 === '240p') {
+                            updateUserScore(pseudo, 1);
+                        }
+                        else if (resolution2 === 240 && (userResolution2 === '144p' || userResolution2 === '240p' ) ) {
+                            updateUserScore(pseudo, 1);
+                        }
+                        else if (resolution2 === 360 && (userResolution2 === '240p' || userResolution2 === '480p' ) ) {
+                            updateUserScore(pseudo, 1);
+                        }
+                        else if (resolution2 === 480 && (userResolution2 === '360p' || userResolution2 === '720p' ) ) {
+                            updateUserScore(pseudo, 1);
+                        }
+                        else if (resolution2 === 720 && (userResolution2 === '480p' || userResolution2 === '1080p' ) ) {
+                            updateUserScore(pseudo, 1);
+                        }
+                        else if (resolution2 === 1080 && (userResolution2 === '720p' || userResolution2 === '2160p' ) ) {
+                            updateUserScore(pseudo, 1);
+                        }
+                        
+                        envoyerDonneesSession(data);
+
+                        // Passer à la session suivante après un délai
+                        if (videosVisionnees + 1 < nombreDeSessions) {
+                            // Délai de 3 secondes avant la prochaine session (S'APPLIQUE SEULEMENT ENTRE LES SESSIONS)
+                            setTimeout(() => {
+                                document.getElementById('feedbackForm').reset();
+                                correctAnswersDiv.style.display = 'none';
+                                feedbackSection.style.display = 'none';
+
+                                videosVisionnees++;
+                                currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+                                jouerResolutionPaire();
+                                
+
+                                
+                            }, 500);
+                        }  
+                        else {
+                            setTimeout(() => {
+                                // Calcul du temps écoulé en secondes
+                                const elapsed = Math.floor((Date.now() - sessionStart) / 1000);  // En secondes
+                                const pseudo = localStorage.getItem("pseudo");
+                                
+                                // Mise à jour du temps passé
+                                updateUserTime(pseudo, elapsed);
+                                saveUserTimeToServer(pseudo, getUserTime(pseudo)); // 👈 Ajout ici
+
+
+                                window.location.href = "Resultat/loading.html"; // Redirection vers la page de résultats
+                                
+                            }, 1000);
+                            }
+
+                    };
+                }
+
+                // Commencer avec la première vidéo
+                jouerResolutionPaire();
+            }
+
+            
+
+            
+        </script>
+
+       
+
+       
+        
+        
+
+        
+    
+        
+    </div>
+
+   
+
+  
+    <div id="sensibilisation" class="tab-content">
+        <section id="sensibilisation1">
+            <h2>Sensibilisation à l'Empreinte Carbone du Streaming Vidéo</h2>
+            <p>Une vidéo qui consomme environ 1 kg de CO2 équivaut à de nombreux impacts environnementaux. Pour mettre cela en perspective :</p>
+            <ul>
+                <li><strong>Conduite d'une voiture :</strong> 1 kg de CO2 est approximativement l'équivalent des émissions de CO2 produites par un trajet de 4 à 5 km en voiture, selon le type de véhicule.</li>
+                <li><strong>Émissions d'une chaudière :</strong> Cela correspond également à la quantité de CO2 émise par le chauffage d'un foyer pendant une heure en hiver.</li>
+                <li><strong>Impact sur l'environnement :</strong> Si des millions de personnes choisissent de regarder des vidéos en haute définition, cela peut rapidement se traduire par des milliers de tonnes de CO2 ajoutées à l'atmosphère, contribuant au changement climatique.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Résultats des Statistiques </h2>
+
+            <!-- Graphique des résolutions les plus confondues -->
+            <div class="graphique">
+                <img src="img/Figure_1.png" class="petite-image" alt="Graphique des résolutions les plus confondues">
+            </div>
+
+            <!-- Explication sur le graphique -->
+            <div class="explication">
+                <p>
+                    Le graphique ci-dessus montre les résolutions vidéo les plus fréquemment confondues par les utilisateurs. Par exemple, la première confusion présente la résolution <span class="highlight">420*720</span> comme étant la plus courante. Cependant, la résolution réelle de la vidéo est <span class="highlight">480</span>, tandis que l'utilisateur pense qu'il regarde une vidéo en <span class="highlight">720p</span>.
+                </p>
+                <p>
+                    Cette confusion est courante car les utilisateurs associent souvent des résolutions plus élevées (comme 720p) à une meilleure qualité d'image. Pourtant, dans de nombreux cas, une résolution plus basse (comme 480p) peut offrir une qualité d'image presque identique à l'œil nu tout en consommant beaucoup moins de données et d'énergie.
+                </p>
+                <p>
+                    En réduisant la résolution de 720p à 480p, vous pouvez économiser de la bande passante et réduire votre empreinte carbone sans sacrifier la qualité de visionnage. Chaque petit geste compte pour réduire l'impact environnemental du streaming vidéo.
+                </p>
+                <p>
+                    Nous vous encourageons donc à considérer l'impact environnemental de chaque vidéo regardée et à choisir des résolutions adaptées à votre besoin réel, en gardant à l'esprit que la qualité vidéo ne dépend pas toujours de la résolution la plus élevée.
+                </p>
+                <p>Chaque geste compte. En choisissant des résolutions plus basses pour le streaming, nous pouvons tous contribuer à réduire notre empreinte carbone collective.</p>
+
+        </section>
+    </div>
+    
+
+    <script>
+        function openTab(event, tabId) {
+            // Cacher tous les contenus des onglets
+            var tabContent = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabContent.length; i++) {
+                tabContent[i].style.display = "none";
+                tabContent[i].classList.remove("active");
+            }
+
+            // Désactiver tous les boutons d'onglet
+            var tabLinks = document.getElementsByClassName("tablink");
+            for (var i = 0; i < tabLinks.length; i++) {
+                tabLinks[i].classList.remove("active");
+            }
+
+           // Afficher le contenu de l'onglet sélectionné et activer le bouton
+            const tabElement = document.getElementById(tabId);
+            tabElement.style.display = "block";
+            tabElement.classList.add("active");
+            if (event) {
+                event.currentTarget.classList.add("active");
+            }
+
+        }
+
+    </script>
+
+
+
+
+   
+
+    
+
+    <footer>
+        <p>&copy; 2025 Mon Site Web. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="loading.css">
+    <script src="chart.umd.js"></script> 
+    <script src="graphique.js"></script>    
+    <title>Calcul des résultats...</title>
+    <style>
+       
+    </style>
+</head>
+<body>
+
+    <h2 id="welcomeMessage">
+        Bienvenue <span id="userPseudo"></span> !
+    </h2>
+      
+    <p id="loadingText">Calcul de vos résultats...</p>
+    <div id="loadingBarContainer">
+        <div id="loadingBar"></div>
+    </div>
+
+    <div id="resultContainer">
+        <p>🏆 Votre score actuelle : <span id="userScore"></span> points</p>
+    
+        <div id="progressBarContainer">
+            <div id="progressBar"></div>
+            <span id="arrow">&#8594;</span>
+        </div>
+    
+        <div id="level">
+            <p id="levelText">Débutant</p>
+        </div>
+    
+        <div id="timeSpent">
+            ⏱️ Temps passé sur l’appli : <span id="userTime">0</span> 
+        </div>
+        <br> 
+
+        <div id="userResults"></div>
+    </div>
+
+
+   
+
+    <div id="ContainerBis">
+       
+
+    </div>
+    
+
+
+
+    <button id="backButton" class="btn-retour" onclick="window.location.href='../site.html'">
+        Retour à l’accueil
+    </button>
+
+
+    
+
+
+    <script>
+        let progress = 0;
+        let loadingBar = document.getElementById("loadingBar");
+
+        let interval = setInterval(() => {
+            progress += 15;
+            loadingBar.style.width = progress + "%";
+
+            if (progress >= 100) {
+                clearInterval(interval);
+                setTimeout(() => {
+                    document.getElementById("loadingBarContainer").style.display = "none";                 
+                    document.getElementById("loadingText").style.display = "none";
+
+                    // Masquer le message de bienvenue
+                    document.getElementById("welcomeMessage").style.display = "none";
+
+                    document.getElementById("resultContainer").style.display = "block";
+                    document.getElementById("ContainerBis").style.display = "block";
+
+
+
+                    document.getElementById("userResults").style.display = "block";
+
+                    document.getElementById("backButton").style.display = "inline-block";
+
+                }, 500);
+            }
+        }, 500);
+
+        document.addEventListener("DOMContentLoaded", function () {
+            let pseudo = localStorage.getItem("pseudo") || "Utilisateur inconnu";
+            document.getElementById("userPseudo").innerText = pseudo;
+        });
+
+        function initUserTime(pseudo) {
+            const key = `time_${pseudo}`;
+            if (!localStorage.getItem(key)) {
+                localStorage.setItem(key, "0");
+            }
+        }
+
+        // Récupère le temps total (en secondes) pour un pseudo
+        function getUserTime(pseudo) {
+        return parseInt(localStorage.getItem(`time_${pseudo}`)) || 0;
+        }
+
+        function formatTime(seconds) {
+            const h = Math.floor(seconds / 3600);
+            const m = Math.floor((seconds % 3600) / 60);
+            const s = seconds % 60;
+            const parts = [];
+            if (h) parts.push(`${h} h`);
+            if (m) parts.push(`${m} min`);
+            parts.push(`${s} s`);
+            return parts.join(' ');
+        }
+
+
+      
+        document.addEventListener("DOMContentLoaded", function () {
+            // Récupérer le pseudo de l'utilisateur
+            let pseudo = localStorage.getItem("pseudo") || "Utilisateur inconnu";
+            
+            // Récupérer le score de l'utilisateur à partir de sa clé spécifique
+            let score = localStorage.getItem(`score_${pseudo}`) || "0";  // Utiliser le pseudo pour la clé
+
+            // Récupérer et afficher le temps total (en secondes)
+            const totalTime = getUserTime(pseudo);
+            document.getElementById("userTime").innerText = formatTime(totalTime);
+            
+            // Afficher le pseudo et le score
+            document.getElementById("userPseudo").innerText = pseudo;
+            document.getElementById("userScore").innerText = score;
+        });    
+        
+        document.addEventListener("DOMContentLoaded", function () {
+            // Récupérer le pseudo de l'utilisateur
+            let pseudo = localStorage.getItem("pseudo") || "Utilisateur inconnu";
+            
+            // Récupérer le score de l'utilisateur à partir de sa clé spécifique
+            let score = localStorage.getItem(`score_${pseudo}`) || 0;  // Utiliser le pseudo pour la clé
+            
+            // Fonction pour mettre à jour la barre de progression et le niveau
+            function updateProgressBar(score) {
+                // Calculer la largeur de la barre de progression (de 0 à 100)
+                //let progress = (score / 100) * 100;
+                
+                // Ajuster la largeur de la barre de progression
+                
+                
+                // Calculer la position de la flèche et de la barre de progression
+                let progress = 0;
+                let level = "";
+                if (score < 30) {
+                    progress = (score / 30) * 100; // Remplir la barre pour le niveau Débutant
+                    level = "Débutant";
+                } else if (score < 60) {
+                    progress = ((score - 30) / 30) * 100; // Remplir la barre pour le niveau Amateur
+                    level = "Amateur";
+                } else if (score < 120) {
+                    progress = ((score - 60) / 60) * 100; // Remplir la barre pour le niveau Pro
+                    level = "Pro";
+                } else if (score <= 200) {
+                    progress = ((score - 120) / 120) * 100; // Remplir la barre pour le niveau Légende
+                    level = "Légende";
+                } else {
+                    // Cas où le score dépasse 100
+                    progress = 100;
+                    level = "Elite";
+}
+                document.getElementById("progressBar").style.width = progress + "%";
+                
+                // Ajuster la position de la flèche
+                document.getElementById("arrow").style.left = progress + "%";
+                
+                // Afficher le niveau
+                document.getElementById("levelText").innerText = level;
+            }
+
+            // Mettre à jour la barre de progression et le niveau en fonction du score de l'utilisateur
+            updateProgressBar(score);
+        });
+
+        
+
+        
+    </script>
+
+<script>
+
+    function analyserResolution(vraie, choisie,screenType) {
+        const niveaux = ["144p", "240p", "360p", "480p", "720p", "1080p", "4k"];
+        const iVraie = niveaux.indexOf(vraie);
+        const iChoisie = niveaux.indexOf(choisie);
+        if (iVraie === -1 || iChoisie === -1) return "⚠️ Résolution inconnue.";
+
+        if (iVraie === iChoisie) return "<span class='bonne-reponse'>✅ Bonne estimation de la résolution.</span>";
+        
+        if (vraie === "144p" && (choisie === "240p" || choisie === "360p")) {
+            if (screenType === "mobile" || screenType === "tablet" || screenType === "pc") {
+                return `<span class='mauvaise-reponse'>📉 144p semble plus net sur un petit écran ${screenType}, mais reste très basse qualité.</span>`;
+        } else {
+            return `<span class='mauvaise-reponse'>📉 144p reste très flou — facile à confondre avec d'autres basses résolutions.</span>`;
+        }       
+                }
+        if (vraie === "240p" && (choisie === "360p" || choisie === "480p")) {
+            if (screenType === "mobile" || screenType === "tablet" || screenType === "pc") {
+                return `<span class='mauvaise-reponse'>📉 240p reste très flou — l'écran ${screenType} peut donner une illusion de netteté.</span>`;
+            }
+        }
+        if (vraie === "480p" && (choisie === "720p" || choisie === "1080p")) {
+            let message = "📺 Vous avez perçu une qualité HD alors que ce n'était que du 480p.";
+            
+            if (screenType === "mobile" || screenType === "tablet") {
+                message += ` Sur un petit écran (${screenType}), les détails manquants peuvent être moins visibles.`;
+            } else if (screenType === "pc") {
+                message += " Sur un écran d’ordinateur, la différence aurait dû être plus marquée.";
+            } else if (screenType === "tv") {
+                message += " Sur une TV, le manque de netteté est généralement plus évident.";
+            }
+
+            return `<span class='mauvaise-reponse'>${message}</span>`;
+        }
+        if (vraie === "720p" && (choisie === "1080p" || choisie === "4k")) {
+            if (screenType === "mobile" || screenType === "tablet") {
+                return `<span class='mauvaise-reponse'>🎥 Vous avez vu du HD comme du Full HD ou 4K.<br>Sur un ${screenType}, les hautes résolutions paraissent souvent plus proches visuellement.</span>`;
+            } else if (screenType === "tv") {
+                return `<span class='mauvaise-reponse'>🎥 Vous avez vu du HD comme du Full HD ou 4K.<br>Sur un grand écran comme une TV, les écarts de qualité deviennent plus visibles, mais le 720p peut encore sembler net.</span>`;
+            } else {
+                return `<span class='mauvaise-reponse'>🎥 Vous avez confondu du 720p avec une résolution supérieure.<br>Sur un écran ${screenType}, cela peut arriver si l'image est bien compressée ou bien éclairée.</span>`;
+            }
+        }
+
+        const diff = iChoisie - iVraie;
+        if (diff >= 2) {
+            if (screenType === "mobile" || screenType === "tablet") {
+                return `<span class='mauvaise-reponse'>🔍 Vous avez nettement surestimé la qualité.<br>Sur un ${screenType}, les faibles résolutions peuvent paraître plus nettes, induisant une surestimation.</span>`;
+            } else if (screenType === "tv") {
+                return `<span class='mauvaise-reponse'>🔍 Vous avez surestimé la qualité.<br>Sur une TV, les écarts de résolution sont plus visibles — ici, c'était trompeur.</span>`;
+            } else {
+                return `<span class='mauvaise-reponse'>🔍 Vous avez nettement surestimé la qualité.<br>Certains écrans comme le vôtre (${screenType}) peuvent lisser les défauts d'image, donnant une impression de meilleure qualité.</span>`;
+            }
+        }
+
+        if (diff <= -2) {
+            if (screenType === "mobile" || screenType === "tablet") {
+                return `<span class='mauvaise-reponse'>👁️ Vous avez sous-estimé la qualité.<br>Sur un petit écran (${screenType}), même les vidéos de bonne qualité peuvent sembler ordinaires.</span>`;
+            } else if (screenType === "tv") {
+                return `<span class='mauvaise-reponse'>👁️ Vous avez sous-estimé la qualité.<br>Sur une TV, une bonne résolution peut sembler moins impressionnante si la source est mal optimisée.</span>`;
+            } else {
+                return `<span class='mauvaise-reponse'>👁️ Vous avez sous-estimé la qualité.<br>Des facteurs comme l’éclairage ou le type d'écran (${screenType}) peuvent réduire la perception de netteté.</span>`;
+            }
+        }
+
+        return "<span class='mauvaise-reponse'>ℹ️ Estimation approximative, mais pas trop éloignée.</span>";
+    }
+
+    function analyserConfortVisionnage(resolution, confort) {
+        const niveaux = ["144p", "240p", "360p", "480p", "720p", "1080p", "4k"];
+        const faibles = niveaux.slice(0, 4);  // 144p → 480p
+        const hautes = niveaux.slice(4);      // 720p → 4k
+
+        // Nettoyer et normaliser la résolution
+        let resClean = resolution.toString().toLowerCase().replace(/\s+/g, '');
+        
+        // Normalisation spéciale : transformer "2160p" en "4k"
+        if (resClean === "2160p") resClean = "4k";
+        if (!resClean.endsWith("p") && resClean !== "4k") resClean += "p";
+
+        const confortClean = (confort || "").trim().toLowerCase();
+
+        const isFaible = faibles.includes(resClean);
+        const isHaute = hautes.includes(resClean);
+
+        if (!niveaux.includes(resClean)) {
+            return "⚠️ Résolution inconnue, analyse impossible.";
+        }
+
+        // Analyse du confort selon le type de résolution
+        if (isFaible) {
+            if (confortClean === "verysatisfactory" || confortClean === "correct") {
+                return "<span class='reponse_ImgQal1'>👍 Malgré la basse résolution, vous avez trouvé le confort visuel satisfaisant — cela montre que d'autres facteurs ont su compenser la qualité de l'image.</span>";
+            } else if (["notsatisfactory", "bad", "unwatchable"].includes(confortClean)) {
+                return "<span class='reponse_ImgQal2'>📉 Votre inconfort est compréhensible au vu de la faible résolution de la vidéo.</span>";
+            }
+        }
+
+        if (isHaute) {
+            if (confortClean === "verysatisfactory" || confortClean === "correct") {
+                return "<span class='reponse_ImgQal1'>✅ Une bonne qualité d’image semble avoir contribué à un visionnage agréable.</span>";
+            } else if (["notsatisfactory", "bad", "unwatchable"].includes(confortClean)) {
+                return "<span class='reponse_ImgQal2'>❗ Malgré une résolution élevée, vous avez ressenti de l’inconfort — cela peut être dû à des problèmes de compression, de fluidité ou à des attentes plus élevées.</span>";
+            }
+        }
+
+        //return "ℹ️ Votre avis sur le confort de visionnage révèle une perception nuancée, au-delà de la seule résolution.";
+
+        // Ajout d’un complément par type d’appareil
+        let deviceMessage = "";
+        switch (screenType) {
+            case "mobile":
+                deviceMessage = "<span class='deviceInfo'>📱 Visionnage sur mobile : la taille de l’écran peut atténuer l’impact d’une faible résolution, mais accentuer l’inconfort sur certaines scènes.</span>";
+                break;
+            case "tablet":
+                deviceMessage = "<span class='deviceInfo'>📱📘 Sur tablette, l’équilibre entre confort et résolution est souvent meilleur, mais reste sensible à la qualité du réseau.</span>";
+                break;
+            case "pc":
+                deviceMessage = "<span class='deviceInfo'>🖥️ Visionnage sur PC : les hautes résolutions sont plus visibles, mais aussi plus exigeantes en termes de compression et de fluidité.</span>";
+                break;
+            default:
+                deviceMessage = "<span class='deviceInfo'>🧐 Type d'appareil non détecté. Analyse limitée.</span>";
+        }
+
+        return message + "<br>" + deviceMessage;
+    }
+
+
+
+
+
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+    // Récupérer les sessions depuis le localStorage
+    let storedData = sessionStorage.getItem("feedbackSessions");
+
+    let resultHTML = `<h3 class="section-title">🧠 Vos réponses et les vraies résolutions</h3>`;
+
+    if (storedData) {
+        let sessions = JSON.parse(storedData);
+        console.log(storedData);
+        console.log("📋 Toutes les sessions de cette visite :", sessions);
+
+
+        sessions.forEach((data, sessionIndex) => {
+            let videoNumber = sessionIndex + 1;
+
+            // Extraire les données de résolution utilisateur
+            let userResolution1 = data.QO1.replace(/[()]/g, "").split(",")[0].trim();
+            let userResolution2 = data.QO1.replace(/[()]/g, "").split(",")[1].trim();
+
+            let correctResolution1 = data.resolution1;
+            let correctResolution2 = data.resolution2;
+
+            let imageQuality1 = data.QO2.replace(/[()]/g, "").split(",")[0].trim(); 
+            let imageQuality2 = data.QO2.replace(/[()]/g, "").split(",")[1].trim();
+
+            let fluidity1 = data.QO4.replace(/[()]/g, "").split(",")[0].trim();
+            let fluidity2 = data.QO4.replace(/[()]/g, "").split(",")[1].trim();
+
+            let preferredVideo = data.QO3;
+            let importantCriteria = data.QO5;
+            let screenType = data.screenType;
+
+            // Analyse des réponses
+            const analyse1 = analyserResolution(correctResolution1, userResolution1, screenType);
+            const analyse2 = analyserResolution(correctResolution2, userResolution2, screenType);
+
+            const confort1 = analyserConfortVisionnage(correctResolution1, imageQuality1);
+            const confort2 = analyserConfortVisionnage(correctResolution2, imageQuality2);
+
+            resultHTML += `
+                <div class="video-result">
+                    <p><strong>🎬 Video ${videoNumber} Résolution 1 :</strong></p>
+                    <p>✅ Résolution correcte : <span class="bonne-reponse">${correctResolution1}</span></p>
+                    <p>📝 Votre réponse : 
+                        <span class="${userResolution1 === correctResolution1 ? 'bonne-reponse' : 'mauvaise-reponse'}">${userResolution1}</span>
+                    </p>
+                    <p>${analyse1}</p>
+                    <p>🎯 ${confort1}</p>
+                </div>
+
+                <div class="video-result">
+                    <p><strong>🎬Video ${videoNumber} Résolution 2 :</strong></p>
+                    <p>✅ Résolution correcte : <span class="bonne-reponse">${correctResolution2}</span></p>
+                    <p>📝 Votre réponse : 
+                        <span class="${userResolution2 === correctResolution2 ? 'bonne-reponse' : 'mauvaise-reponse'}">${userResolution2}</span>
+                    </p>
+                    <p>${analyse2}</p>
+                    <p>🎯 ${confort2}</p>
+                </div>
+            `;
+        });
+
+        let resultHTML_3 = `
+               
+
+                <div class="video-result">
+                    
+
+                    <h3 class="section-title">📊 Statistiques en graphiques</h3>
+                    <canvas id="chartPrecision" width="600" height="400"></canvas>
+
+                    <canvas id="chartConfusions" width="800" height="600"></canvas>
+
+                    <canvas id="chartSatisfaction1" width="600" height="400"></canvas>
+                    <canvas id="chartSatisfaction2" width="600" height="400"></canvas>
+
+
+                    
+                </div>
+            `;
+
+            let resultHTML_4 = `
+               
+
+               <div class="video-result">
+
+                   
+               </div>
+           `;
+
+
+        // Injecter le HTML final dans la page
+        document.getElementById("userResults").innerHTML = resultHTML;
+        document.getElementById("ContainerBis").innerHTML = resultHTML_3;
+
+       
+
+
+        const username = localStorage.getItem("pseudo");
+        const baseURL = `http://${window.location.hostname}:3300`;
+
+
+        fetch(`${baseURL}/precision/${encodeURIComponent(username)}`)
+            .then(res => res.json())
+            .then(({ precision }) => {
+            console.log("Précision récupérée du serveur :", precision);
+            afficherGraphiquePrecision(precision);
+            })
+            .catch(err => console.error("Erreur précision cumulée :", err));
+
+        fetch(`${baseURL}/confusions/${username}`) 
+            .then(res => res.json())
+            .then(data => {
+                afficherGraphiqueConfusions(data);
+            })
+            .catch(err => console.error("Erreur récupération des confusions :", err));
+
+        fetch(`${baseURL}/satisfaction/${username}`)
+            .then(res => res.json())
+            .then(data => {
+                afficherSatisfactionParResolution(data.video1, 'Vidéo 1', 'chartSatisfaction1');
+                afficherSatisfactionParResolution(data.video2, 'Vidéo 2', 'chartSatisfaction2');
+            })
+            .catch(err => console.error("Erreur chargement satisfaction :", err));
+
+    }
+});
+
+
+    
+
+</script>
+
+
+
+
+
+</body>
+</html>

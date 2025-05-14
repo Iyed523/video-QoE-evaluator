@@ -1,0 +1,746 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #ffffff, #e9ecef);
+    color: #333;
+}
+
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 0;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 24px;
+}
+p {
+    font-size: 16px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+nav {
+    background-color: #333;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 14px 20px;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: #575757;
+    border-radius: 4px;
+}
+
+main {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h2 {
+    color: #4CAF50;
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+form {
+    margin-top: 20px;
+}
+
+/* Styles des icônes */
+
+
+table {
+    width: 100%;
+    border-collapse: collapse; /* Pour fusionner les bordures */
+    margin: 20px 0;
+
+}
+
+th, td {
+    border: 1px solid #ddd; /* Bordure autour des cellules */
+    padding: 8px; /* Espacement interne des cellules */
+    text-align: left; /* Alignement du texte */
+}
+
+th {
+    background-color: #f2f2f2; /* Couleur de fond pour les en-têtes */
+    font-weight: bold; /* Met en gras les titres des colonnes */
+}
+
+.icon-check::before {
+    content: "\2713"; /* Symbole de coche */
+    color: green;
+    font-size: 20px;
+}
+
+.icon-cross::before {
+    content: "\2715"; /* Symbole de croix */
+    color: red;
+    font-size: 20px;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+.tab {
+    display: flex;
+    justify-content: space-around;
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #ddd;
+}
+
+.tab button {
+    background-color: inherit;
+    border: none;
+    outline: none;
+    padding: 14px 20px;
+    transition: 0.3s;
+    font-size: 17px;
+    color: #4CAF50;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.tab button:hover {
+    background-color: #e0e0e0;
+    border-radius: 4px;
+}
+
+.tab button.active {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 4px;
+}
+
+/* Styles pour le contenu des onglets */
+.tab-content {
+    display: none;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-top: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Formulaires */
+form {
+    margin-top: 20px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+form input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+form input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Responsivité */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+    }
+
+    .tab {
+        flex-direction: column;
+    }
+
+    .tab button {
+        width: 100%;
+    }
+}
+
+
+#transitionScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Fond semi-transparent */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    z-index: 1000;
+    backdrop-filter: blur(10px); /* Effet de flou sur l'arrière-plan */
+    display: none; /* Caché par défaut */
+}
+
+.navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.navigation-buttons button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.navigation-buttons button:hover {
+    background-color: #0056b3;
+}
+
+/* Barre de progression */
+.progress-container {
+    width: 100%;
+    height: 10px;
+    background: #ddd;
+    margin-top: 15px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: #007BFF;
+    transition: width 0.5s;
+}
+
+.tab {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tablink {
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    background: #ddd;
+    transition: background 0.3s, color 0.3s;
+    position: relative;
+    border-radius: 50px;
+    
+}
+
+/* Onglet actif */
+.tablink.active {
+    background: #007BFF;
+    color: white;
+    border-radius: 50px;
+    
+}
+
+/* Onglet complété */
+.tablink.completed {
+    background: #28a745;
+    color: white;
+    border-radius: 50px;
+    
+}
+
+/* Contenu des onglets */
+.tab-content {
+    display: none;
+    
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Boutons de navigation */
+.nav-buttons {
+    margin-top: 20px;
+}
+
+#prevButton, #nextButton, #skipButton {
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    background: #007BFF;
+    color: white;
+    margin-right: 10px;
+    transition: background 0.3s;
+}
+
+#prevButton:hover, #nextButton:hover, #skipButton:hover {
+    background: #0056b3;
+}
+
+
+.tab {
+    position: relative;
+    display: flex;
+    gap: 5px;
+    background: #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+    border-radius: 50px;
+}
+
+/* Barre de progression en arrière-plan */
+.tab::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0%;
+    background: rgba(8, 198, 27, 0.585); /* Couleur de remplissage */
+    transition: width 0.5s ease-in-out;
+    z-index: 0;
+    border-radius: 50px;
+}
+
+/* Onglets */
+.tablink {
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    position: relative;
+    z-index: 1; /* Pour être au-dessus de la barre */
+    transition: color 0.3s;
+    border-radius: 50px;
+}
+
+/* Changer la couleur du texte pour plus de lisibilité */
+.tablink.active {
+    color: white;
+    font-weight: bold;
+    border-radius: 50px;
+}
+
+
+/* Conteneur du pop-up */
+.popup-container {
+    display: none; /* Caché par défaut */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Centrer le bouton "Fermer" */
+#closePopup {
+    align-self: center; /* Centre horizontalement le bouton */
+    padding: 10px 20px; /* Espacement à l'intérieur du bouton */
+    background-color: #f44336; /* Couleur de fond */
+    color: white; /* Couleur du texte */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px; /* Marge au-dessus du bouton */
+    text-align: center;
+}
+
+/* Contenu du pop-up */
+.popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    width: 50%;
+    max-width: 600px;
+    text-align: left; /* Texte aligné à gauche */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Espacement entre les éléments */
+    height: 100%; /* Prend toute la hauteur disponible */
+}
+
+/* Bouton de fermeture */
+.close-popup {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: black;
+}
+
+
+.popup-container {
+    display: none; /* Caché par défaut */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* fond noir semi-transparent */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* SUPER IMPORTANT */
+    backdrop-filter: blur(10px);
+}
+
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 30px;  /* Ajuste la taille de la flèche */
+    color: white;  /* La couleur de la flèche */
+    cursor: pointer;
+    user-select: none;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px; /* Largeur du cercle */
+    height: 50px; /* Hauteur du cercle */
+    border-radius: 50%; /* Faire un cercle */
+    background-color: black; /* Couleur du fond du cercle */
+}
+.arrow.left {
+    left: 5px;
+}
+.arrow.right {
+    right: 5px;
+}
+
+.popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 2000px;
+    height: auto;
+    max-height: 90vh; /* Limite la hauteur à 90% de la hauteur de l'écran */
+    overflow-y: auto; /* Permet la barre de défilement uniquement si le contenu est trop long */
+}
+
+
+
+.close-popup {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: black;
+}
+
+
+
+.progress-bar-container {
+    width: 100%;
+    height: 40px; /* Plus haut pour mettre les cercles */
+    background-color: transparent; /* On enlève le fond gris */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    position: relative;
+    width: 80%;
+    height: 4px;
+    background-color: #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.step {
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border: 3px solid #4caf50;
+    border-radius: 50%;
+    position: relative;
+    z-index: 2;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.step.active {
+    background-color: #4caf50;
+    transform: scale(1.2);
+}
+
+
+/* Ajoute ce style dans ton fichier CSS ou dans un <style> */
+/* Ajoute ce style dans ton fichier CSS ou dans un <style> */
+.overlay-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.popup-box {
+    background: white;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto; /* C'est ça qui permet de scroller si le contenu est trop grand */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    align-items: center;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+}
+
+.tab {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.tab-content {
+    max-width: 900px;
+    width: 100%;
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    margin-bottom: 40px;
+    
+}
+
+.navigation-buttons {
+    width: 100%;
+    max-width: 1200px; /* plus grand que le contenu */
+    display: flex;
+    justify-content: space-between; /* bouton gauche et bouton droit */
+    padding: 0 40px; /* espace intérieur à gauche et à droite */
+    margin-bottom: 20px;
+}
+
+.navigation-buttons button {
+    padding: 12px 24px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.navigation-buttons button:hover {
+    background-color: #45a049;
+}
+
+.navigation-buttons {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    margin: 30px auto 0 auto; /* <-- espace au-dessus, pas collé en haut */
+    padding: 0 40px;
+}
+
+.navigation-buttons button {
+    padding: 12px 24px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.navigation-buttons button:hover {
+    background-color: #45a049;
+}
+
+.petite-image {
+    width: 600px; /* ou 50%, ou auto */
+    height: 400px; /* garde les proportions */
+    display: block;
+    margin: 0 auto;
+}
+
+
+#modeEnfantButton {
+    float: right; /* Déplace le bouton à droite */
+    background-color: #4CAF50; /* Couleur de fond */
+    color: white; /* Couleur du texte */
+    border: none; /* Pas de bordure */
+    padding: 10px 20px; /* Espacement interne */
+    font-size: 16px; /* Taille de la police */
+    cursor: pointer; /* Curseur en forme de main */
+    border-radius: 5px; /* Coins arrondis */
+    transition: background-color 0.3s ease; /* Transition pour le survol */
+}
+
+/* Changer la couleur du bouton au survol */
+#modeEnfantButton:hover {
+    background-color: #45a049; /* Couleur au survol */
+}
+
+#logoEnHautGauche {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 200px;
+    height: auto;
+    z-index: 1000; /* S'assurer qu'elle soit au-dessus du contenu */
+}
+
+
+/* Version mobile - Modification spécifique pour les onglets */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+        overflow-x: hidden; /* Empêche le défilement horizontal global */
+    }
+    
+    .tab {
+        display: flex;
+        flex-wrap: nowrap; /* Empêche le retour à la ligne */
+        overflow-x: auto; /* Permet le défilement horizontal */
+        -webkit-overflow-scrolling: touch; /* Défilement fluide sur iOS */
+        scrollbar-width: none; /* Cache la scrollbar sur Firefox */
+        padding-bottom: 15px; /* Espace pour le scroll */
+        justify-content: flex-start; /* Alignement à gauche */
+        background: transparent; /* Supprime le fond gradient */
+        border-radius: 0; /* Supprime les coins arrondis */
+        gap: 5px; /* Espace entre les boutons */
+    }
+    
+    .tab::-webkit-scrollbar {
+        display: none; /* Cache la scrollbar sur Chrome/Safari */
+    }
+    
+    .tablink {
+        flex: 0 0 auto; /* Empêche le redimensionnement */
+        padding: 10px 15px;
+        font-size: 14px;
+        white-space: nowrap;
+        background-color: #f1f1f1; /* Fond clair pour meilleure visibilité */
+        color: #333;
+        border-radius: 20px; /* Boutons arrondis */
+    }
+    
+    .tablink.active {
+        background-color: #4CAF50;
+        color: white;
+    }
+    
+    .tab-content {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .navigation-buttons {
+        padding: 0 10px;
+    }
+    
+    .navigation-buttons button {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+    
+    #logoEnHautGauche {
+        width: 120px; /* Taille réduite pour mobile */
+        top: 5px;
+        left: 5px;
+    }
+    
+    /* Ajustements pour les images */
+    .petite-image {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+    }
+}
