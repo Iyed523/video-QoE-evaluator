@@ -1,6 +1,6 @@
 
 
-function afficherGraphiquePrecision(precision) {
+function afficherGraphiquePrecision(precisionUser, precisionMoyenne) {
     const canvas = document.getElementById('chartPrecision');
     if (!canvas) {
         console.error("Canvas #chartPrecision introuvable !");
@@ -16,14 +16,24 @@ function afficherGraphiquePrecision(precision) {
     new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Votre taux de précision'],
-            datasets: [{
-                label: 'Précision (%)',
-                data: [precision],
-                backgroundColor: '#42a5f5'
-            }]
+            labels: ['Taux de précision'],
+            datasets: [
+                {
+                    label: 'Vous',
+                    data: [precisionUser],
+                    backgroundColor: '#42a5f5',
+                    barThickness: 40
+                },
+                {
+                    label: 'Moyenne des utilisateurs',
+                    data: [precisionMoyenne],
+                    backgroundColor: '#9ccc65',
+                    barThickness: 40
+                }
+            ]
         },
         options: {
+            responsive: true,
             scales: {
                 y: {
                     beginAtZero: true,
@@ -33,6 +43,7 @@ function afficherGraphiquePrecision(precision) {
         }
     });
 }
+
 
 
 function afficherGraphiqueConfusions(confusions) {

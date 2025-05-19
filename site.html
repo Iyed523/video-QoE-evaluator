@@ -288,7 +288,7 @@
     <div id="videos" class="tab-content">
         <section id="videos1">
              
-            <button id="modeEnfantButton" onclick="activerModeEnfant()">👶 Mode enfant</button>
+            <button id="modeEnfantButton" onclick="activerModeEnfant()">👶 Mode enfant désactivé</button>
             <h2>Vidéos à Visionner</h2>
 
 
@@ -297,7 +297,6 @@
                 Une fois la vidéo terminée, nous vous inviterons à donner votre retour sur votre expérience 
                 de visionnage. Cela nous aidera à comprendre l'impact des différentes résolutions.
             </p>
-            <div id="modeStatus" style="font-weight: bold; margin: 10px;"></div>
 
             
             <section id="feedback1" style="display: block;">
@@ -737,19 +736,16 @@
                 enfantMode = !enfantMode;
 
                 const button = document.getElementById("modeEnfantButton");
-                const status = document.getElementById("modeStatus");
 
                 if (enfantMode) {
-                    status.innerText = "👶 Mode enfant activé";
 
-                    button.innerText = "👨‍🦰 Mode adulte";
+                    button.innerText = "👶 Mode enfant activé";
                     button.style.backgroundColor = "#ffcccb";  // rose clair
                     button.style.color = "#000";
 
                 } else {
-                    status.innerText = "👨‍🦰 Mode adulte activé";
 
-                    button.innerText = "👶 Mode enfant";
+                    button.innerText = "👶 Mode enfant désactivé";
                     button.style.backgroundColor = "#d1e7dd";  // vert clair
                     button.style.color = "#000";
                 }
@@ -864,7 +860,7 @@
                         // Attendre quelques millisecondes avant d'activer le plein écran
                         setTimeout(() => {
                             enterFullscreen(); // Remettre en plein écran après la transition
-                        }, 100); // 100ms pour laisser le temps à la vidéo de se charger
+                        }, 250); // 100ms pour laisser le temps à la vidéo de se charger
                     }, 2000); // Durée de la transition
                 }
 

@@ -129,39 +129,57 @@ app.post('/addUser', async (req, res) => {
 const csvParser = require('csv-parser');
 app.get('/precision/:username', (req, res) => {
     const username = req.params.username.trim().toLowerCase();
-    let totalReponses = 0;
-    let bonnesReponses = 0;
+
+    let totalReponsesUser = 0;
+    let bonnesReponsesUser = 0;
+
+    let totalReponsesTous = 0;
+    let bonnesReponsesTous = 0;
 
     fs.createReadStream(csvFilePath)
         .pipe(csvParser())
         .on('data', (row) => {
-            if (row._0?.trim().toLowerCase() === username) {
-                const userQO1 = (row._3 || "").replace(/[()\n\r]/g, "").split(",");
-                const userRes1 = userQO1[0]?.trim().toLowerCase();
-                const userRes2 = userQO1[1]?.trim().toLowerCase();
-            
-                const correctRes1 = (row._1 || "").trim().toLowerCase();
-                const correctRes2 = (row._2 || "").trim().toLowerCase();
+            const rowUsername = row._0?.trim().toLowerCase();
+            const userQO1 = (row._3 || "").replace(/[()\n\r]/g, "").split(",");
+            const userRes1 = userQO1[0]?.trim().toLowerCase();
+            const userRes2 = userQO1[1]?.trim().toLowerCase();
 
-                // Comparaison des résolutions
+            const correctRes1 = (row._1 || "").trim().toLowerCase();
+            const correctRes2 = (row._2 || "").trim().toLowerCase();
+
+            // Pour l'utilisateur courant
+            if (rowUsername === username) {
                 if (correctRes1 && userRes1) {
-                    totalReponses++;
-                    if (userRes1 === correctRes1) bonnesReponses++;
+                    totalReponsesUser++;
+                    if (userRes1 === correctRes1) bonnesReponsesUser++;
                 }
-            
                 if (correctRes2 && userRes2) {
-                    totalReponses++;
-                    if (userRes2 === correctRes2) bonnesReponses++;
+                    totalReponsesUser++;
+                    if (userRes2 === correctRes2) bonnesReponsesUser++;
                 }
-            } else {
+            }
+
+            // Pour la moyenne globale
+            if (correctRes1 && userRes1) {
+                totalReponsesTous++;
+                if (userRes1 === correctRes1) bonnesReponsesTous++;
+            }
+            if (correctRes2 && userRes2) {
+                totalReponsesTous++;
+                if (userRes2 === correctRes2) bonnesReponsesTous++;
             }
         })
         .on('end', () => {
-            const precision = totalReponses > 0 ? (bonnesReponses / totalReponses) * 100 : 0;
-            
-            res.json({ precision: precision.toFixed(2) });
+            const precisionUser = totalReponsesUser > 0 ? (bonnesReponsesUser / totalReponsesUser) * 100 : 0;
+            const precisionMoyenne = totalReponsesTous > 0 ? (bonnesReponsesTous / totalReponsesTous) * 100 : 0;
+
+            res.json({
+                precision: Number(precisionUser.toFixed(2)),
+                moyenne: Number(precisionMoyenne.toFixed(2))
+            });
         });
 });
+
 
 app.get('/confusions/:username', (req, res) => {
     const username = req.params.username.trim().toLowerCase();

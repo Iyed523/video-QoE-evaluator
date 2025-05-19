@@ -428,11 +428,13 @@
 
         fetch(`${baseURL}/precision/${encodeURIComponent(username)}`)
             .then(res => res.json())
-            .then(({ precision }) => {
-            console.log("Précision récupérée du serveur :", precision);
-            afficherGraphiquePrecision(precision);
+            .then(({ precision, moyenne }) => {
+                console.log("Précision utilisateur :", precision);
+                console.log("Précision moyenne :", moyenne);
+                afficherGraphiquePrecision(precision, moyenne);
             })
             .catch(err => console.error("Erreur précision cumulée :", err));
+
 
         fetch(`${baseURL}/confusions/${username}`) 
             .then(res => res.json())
